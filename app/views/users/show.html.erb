@@ -8,10 +8,12 @@
         <td class="text-center"><h4>Days Left</h4></td>
       </thead>
       <tbody>
+        <div class='js-items'>
         <% if @items.any? %>
           <%= render @user.items %>
         <% end %>
           <%= render partial: 'items/form', locals: { user: @user, item: @item } %>
+        </div>
       </tbody>
     </table>
   </div>

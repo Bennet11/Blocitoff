@@ -5,21 +5,28 @@ class ItemsController < ApplicationController
 
     if @items.save
       flash[:notice] = "To-Do item successfully saved."
+      redirect_to @user
     else
       flash[:error] = "Error saving To-Do item."
     end
-    redirect_to @user
+      return
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def destroy
     @user = User.find(params[:user_id])
-    @items = current_user.items.find(params[:id])
-
+    @items = @user.items.find(params[:id])
     if @items.destroy
       flash[:notice] = "\"#{@items.name} has been successfully removed"
+      redirect_to user_path(current_user), notice: 'Item destroyed'
     else
       flash[:error] = "Failed to remove task"
     end
+      return
 
     respond_to do |format|
       format.html
