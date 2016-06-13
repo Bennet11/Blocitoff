@@ -4,7 +4,7 @@
   password: Faker::Internet.password
   )
 end
-users = User.all
+  users = User.all
 
 50.times do
   Item.create!(
