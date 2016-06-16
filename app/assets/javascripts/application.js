@@ -15,12 +15,22 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
-var blocmetrics = {};
-  blocmetrics.report = function("sale") {
-    var event = { event: { name: "sale" }};
 
+$(document).ready(function() {
+  blocmetrics = {};
+  blocmetrics.report = function(eventName) {
+    var event = { event: { name: eventName }};
     var request = new XMLHttpRequest();
       request.open("POST", "http://localhost:3000/api/events", true);
       request.setRequestHeader('Content-Type', 'application/json');
       request.send(JSON.stringify(event));
-  };
+  }
+
+  $('.user-profile').click(function(event) {
+    blocmetrics.report("User visited profile");
+  });
+
+  $('.save-item').click(function(event) {
+    blocmetrics.report("User saved item");
+  });
+});
